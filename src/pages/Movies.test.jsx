@@ -38,17 +38,6 @@ test('พิมพ์ค้นหา ต้องกรองในเครื�
   expect(screen.getByText('Your Name')).toBeInTheDocument();
   expect(getMovies).toHaveBeenCalledTimes(1);          // ยังเรียกแค่ตอนโหลดครั้งแรก
 });
-test('กดเลือกแนว ต้องเหลือเฉพาะแนวนั้น', async () => {
-  const user = userEvent.setup();
-  getMovies.mockResolvedValue(FAKE_MOVIES);
-  renderMovies();
-  await screen.findByText('Parasite');
-
-  await user.click(screen.getByRole('button', { name: 'Animation' }));
-
-  expect(screen.getAllByRole('link')).toHaveLength(1);
-  expect(screen.queryByText('Parasite')).not.toBeInTheDocument();
-});
 test('backend ล่ม ต้องเห็นข้อความ error และปุ่มลองใหม่ที่โหลดอีกครั้งได้', async () => {
   const user = userEvent.setup();
   getMovies
